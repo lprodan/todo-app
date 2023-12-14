@@ -1,0 +1,55 @@
+.container {
+    font-family: var(--primary-font);
+    text-align: center;
+    background-image: url("../../../todo-app/public/background-img.png");
+    height: calc(100vh - 61px);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+p {
+    margin: 0;
+    padding: 50px;
+}
+
+.container-header {
+    font-size: 60px;
+}
+
+.container-content {
+    font-size: 30px;
+}
+
+.container-footer {
+    font-size: 40px;
+    background: var(--background-menu-color);
+    padding: 6px 18px;
+    border-radius: 20px;
+    color: var(--button-color);
+    transition: all 300ms ease-in-out;
+    font-family: var(--secondary-font);
+}
+
+.container-footer:hover {
+    color: var(--hover-color);
+}
+
+.flower-img {
+    width: 100%;
+    transform: rotate(180deg);
+    position: fixed;
+    bottom: -500px;
+    left: 0;
+    z-index: -1;
+}
+
+.flower-link {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+a {
+    text-decoration: none;
+}

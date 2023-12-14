@@ -1,0 +1,65 @@
+header {
+    display: flex;
+    background-color: var(--background-menu-color);
+    padding: 20px;
+    min-height: 21px;
+    color: var(--text-color);
+}
+
+header ul {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+header li {
+    list-style-type: none;
+    padding: 0 10px;
+
+}
+
+header li:not(:last-child) {
+    border-right: 1px solid var(--active-color);
+}
+
+header a:hover {
+    color: var(--text-color);
+}
+
+header .active {
+    color: var(--text-color);
+}
+
+header a {
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: all 300ms ease-in-out;
+}
+
+nav {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 30px;
+}
+
+.user-email{
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-submit {
+    font-size: 16px;
+    background: var(--secondary-color);
+    margin-top: 5px;
+    border-radius: 20px;
+    transition: all 300ms ease-in-out;
+    font-family: var(--secondary-font);
+    border-width: 0;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: var(--accent-color);
+}

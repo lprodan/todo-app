@@ -1,0 +1,8 @@
+.about {
+    font-family: var(--primary-font);
+    margin: 50px;
+}
+
+.accent {
+    font-family: var(--secondary-font);
+}
