@@ -1,0 +1,21 @@
+.pagination li {
+  list-style-type: none;
+}
+
+.pagination {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-item {
+  margin: 2px;
+  font-weight: 500;
+  color: var(--accent-color);
+}
+
+.page-item:hover,
+.page-item.active {
+  color: var(--text-color);
+}

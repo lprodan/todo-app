@@ -3,6 +3,8 @@
     margin: 50px;
 }
 
-.accent {
-    font-family: var(--secondary-font);
+@media screen and (max-width: 425px) {
+    .about {
+        margin: 10px;
+    }
 }

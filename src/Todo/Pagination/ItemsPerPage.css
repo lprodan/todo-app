@@ -1,0 +1,13 @@
+.count-items {
+  margin: 10px;
+}
+
+.count-items select {
+  margin-left: 4px;
+  background: inherit;
+  cursor: pointer;
+}
+
+.count-items select:hover {
+  background: var(--accent2-color);
+}
