@@ -1,13 +1,13 @@
-import {ErrorMessage, Field, Form, Formik, FormikHelpers} from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import "./LogInPage.css"
-import {createUserWithEmailAndPassword, } from "firebase/auth";
-import {auth} from "../firebase.ts";
-import {useNavigate} from "react-router-dom";
+import "./Authentication.css"
+import { createUserWithEmailAndPassword, } from "firebase/auth";
+import { auth } from "../firebase.ts";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
     const navigate = useNavigate()
-    const register = ({email, password}: any, {setErrors}: FormikHelpers<any>) => {
+    const register = ({ email, password }: any, { setErrors }: FormikHelpers<any>) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -19,7 +19,7 @@ export default function SignUp() {
 
                 switch (errorCode) {
                     case "auth/email-already-in-use":
-                        setErrors({email: 'You are already registered'})
+                        setErrors({ email: 'You are already registered' })
                         break
                 }
             });
@@ -45,23 +45,23 @@ export default function SignUp() {
         email: Yup.string().email('* Invalid email').required('* Required')
     })
 
-    return <div className="submit">
-        <Formik initialValues={{email: "", password: ""}}
-                validationSchema={SignupSchema}
-                onSubmit={register}>
-            <Form style={{width: "auto"}}>
-                <ErrorMessage name="email" render={errorEmail}/>
-                <Field name="email" className="input" type="text"
-                       placeholder="Enter email"/>
-                <ErrorMessage name="password" render={errorPassword}/>
-                <Field name="password" className="input" type="text"
-                       placeholder="Enter password"/>
+    return <div className="auth-container">
+        <Formik initialValues={{ email: "", password: "" }}
+            validationSchema={SignupSchema}
+            onSubmit={register}>
+            <Form className="submit">
+                <ErrorMessage name="email" render={errorEmail} />
+                <Field name="email" className="input input-authentication" type="text"
+                    placeholder="Email" />
+                <ErrorMessage name="password" render={errorPassword} />
+                <Field name="password" className="input input-authentication" type="text"
+                    placeholder="Password" />
                 <div className="btn-container">
-                    <button className="btn-submit" type="submit" title="Submit">
+                    <button className="btn btn-submit" type="submit" title="Submit">
                         Sign Up
                     </button>
                     <span>Are you already registered?</span>
-                    <button className="btn-login" type="button" title="Login" onClick={goToLogIn}>Log In</button>
+                    <button className="btn btn-login" type="button" title="Login" onClick={goToLogIn}>Log In</button>
                 </div>
             </Form>
         </Formik>

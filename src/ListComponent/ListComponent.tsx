@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import './ListComponent.css';
 import {useState} from "react";
-import ListItemComponent from "../ListItemComponent/ListItemComponent.tsx";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus, faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import {ErrorMessage, Field, Form, Formik, FormikConfig} from "formik";
 import * as Yup from 'yup';
 import * as List from "../API/api.ts"
+import ListItemComponent from "../ListItemComponent/ListItemComponent.tsx";
 
 export interface ListItem {
     id: string

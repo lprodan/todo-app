@@ -1,14 +1,13 @@
 .container {
-    font-family: var(--primary-font);
     text-align: center;
     background-image: url("../../../todo-app/public/background-img.png");
-    height: calc(100vh - 61px);
+    height: calc(100vh - 83px);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-p {
+.container p {
     margin: 0;
     padding: 50px;
 }
@@ -21,17 +20,16 @@ p {
     font-size: 30px;
 }
 
-.container-footer {
+.btn-container-footer {
+    font-weight: 500;
     font-size: 40px;
     background: var(--background-menu-color);
     padding: 6px 18px;
     border-radius: 20px;
     color: var(--button-color);
-    transition: all 300ms ease-in-out;
-    font-family: var(--secondary-font);
 }
 
-.container-footer:hover {
+.btn-container-footer:hover, .flower-link a:hover {
     color: var(--hover-color);
 }
 
@@ -46,10 +44,20 @@ p {
 
 .flower-link {
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: 5px;
+    right: 5px;
 }
 
-a {
-    text-decoration: none;
+@media (max-width: 768px) {
+    .container-header {
+        font-size: 40px;
+    }
+
+    .container-content {
+        font-size: 26px;
+    }
+
+    .container p {
+        padding: 30px;
+    }
 }

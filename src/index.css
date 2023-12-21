@@ -10,33 +10,45 @@
     --error-color: #ff0000;
     --text-color: #0d0d0d;
     --background-menu-color:  #dfb9de;
-    --primary-font: 'Bellota', sans-serif;
-    --secondary-font: 'Bellota', cursive;
+    --primary-font: 'Ubuntu', sans-serif;
+
+    overscroll-behavior: none;
 }
 
 body {
+    overscroll-behavior: none;
+    font-family: var(--primary-font);
+    font-weight: 300;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    flex-direction: column;
     background-color: var(--primary-color);
     color: var(--text-color);
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.btn {
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    border-width: 0;
 }
 
-.header {
-    font-size:90px;
-    text-align: center;
-    padding-top: 56px;
-    color: var(--button-color);
-    font-style: italic;
-    pointer-events: none;
+.input {
+    width: calc(100%-10px);
+    font-size: 20px;
+    padding: 10px;
+    border-color: var(--active-color);
+    border-style: solid;
+    border-radius: 2px;
+    border-width: 2px;
+}
+
+.input:focus {
+    outline: none;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: var(--button-color);
+}
+
+a {
+    text-decoration: none;
 }

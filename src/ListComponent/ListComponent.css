@@ -3,6 +3,16 @@
     box-shadow: 1px 10px 20px var(--accent-color);
 }
 
+.header {
+    font-size:90px;
+    text-align: center;
+    padding-top: 56px;
+    color: var(--button-color);
+    font-style: italic;
+    pointer-events: none;
+}
+
+
 /*----------------box-header----------------------*/
 .box-header {
     position: relative;
@@ -11,6 +21,7 @@
     flex-direction: row;
     font-family: var(--secondary-font);
 }
+
 
 /*----------------box-section---------------------*/
 .box-section {
@@ -32,13 +43,6 @@
     top: 10px;
 }
 
-input:focus {
-    outline: none;
-    border-radius: 2px;
-    border-style: solid;
-    border-color: var(--button-color);
-}
-
 .input {
     flex: 80%;
     font-size: 20px;
@@ -47,7 +51,6 @@ input:focus {
     border-style: solid;
     border-radius: 2px;
     border-width: 2px;
-    font-family: 'Bellota', cursive;
 }
 
 .message {

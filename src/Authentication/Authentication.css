@@ -1,24 +1,24 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
 .btn-submit {
     font-size: 26px;
     background: var(--background-menu-color);
     padding: 6px 18px;
     border-radius: 20px;
     color: var(--button-color);
-    transition: all 300ms ease-in-out;
     font-family: var(--secondary-font);
-    border-width: 0;
-    cursor: pointer;
     margin-bottom: 20px;
 }
 
 .btn-forgot-pass {
     font-size: 16px;
     background: inherit;
-    border-width: 0;
     border-bottom: 1px solid var(--text-color);
     color: var(--text-color);
-    transition: all 300ms ease-in-out;
-    cursor: pointer;
     margin-bottom: 20px;
     padding: 6px;
 }
@@ -31,12 +31,9 @@
 .btn-login {
     font-size: 16px;
     background: var(--secondary-color);
-    border-width: 0;
-    cursor: pointer;
     border-radius: 20px;
     width: 50%;
     padding: 6px 10px;
-    transition: all 300ms ease-in-out;
 }
 
 .btn-login:hover {
@@ -44,9 +41,14 @@
 }
 
 .btn-container {
-    width: 56%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.btn-container * {
+    width: 100%;
+    text-align: center;
 }
 
 .btn-submit:hover {
@@ -54,29 +56,18 @@
 }
 
 .submit {
-    width: auto;
     display: flex;
-    margin: 50px;
+    flex-direction: column;
     position: relative;
 }
 
-.input {
-    display: flex;
+.input-authentication {
     margin-bottom: 40px;
-    width: 100%;
-    font-size: 20px;
-    padding: 10px 10px 10px 40px;
-    border-color: var(--active-color);
-    border-style: solid;
-    border-radius: 2px;
-    border-width: 2px;
-    font-family: 'Bellota', cursive;
 }
 
 .error-submit {
     position: absolute;
     color: var(--error-color);
-    font-weight: bold;
     left: 0;
 }
 

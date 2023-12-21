@@ -1,4 +1,4 @@
-import {db} from "../firebase.ts";
+import {db} from "../firebase.ts"
 import {
     collection,
     addDoc,
@@ -6,11 +6,10 @@ import {
     doc,
     deleteDoc,
     updateDoc,
-    getDocs,
-    onSnapshot
+    onSnapshot, CollectionReference, writeBatch
 } from 'firebase/firestore'
-import {ListItem} from "../ListComponent/ListComponent.tsx";
-import {FirestoreError, QuerySnapshot} from "@firebase/firestore";
+import {ListItem} from "../ListComponent/ListComponent.tsx"
+import {FirestoreError, QuerySnapshot} from "@firebase/firestore"
 
 interface Item extends ListItem {
     value: string
@@ -18,24 +17,30 @@ interface Item extends ListItem {
     date: string
 }
 
-let collectionRef = collection(db, 'todos');
+let collectionRef: CollectionReference
 
 export function setUserId(uid: string) {
-    collectionRef = collection(db, `todos:${uid}`);
+    collectionRef = collection(db, `todos/${uid}/docs`)
 }
 
-export async function all() {
-    return getDocs(collectionRef).then((todos) => {
-        return processData(todos)
-    })
-}
+// export async function all() {
+//     return getDocs(collectionRef).then((todos) => {
+//         return processData(todos)
+//     })
+// }
 
 export function remove(id: string) {
     return deleteDoc(doc(collectionRef, id))
 }
 
 export function clear(ids: string[]): any {
-    return Promise.resolve()
+    const batch = writeBatch(db)
+
+    for (const id of ids) {
+        batch.delete(doc(collectionRef, id))
+    }
+
+    return batch.commit()
 }
 
 export function create(value: string): any {
