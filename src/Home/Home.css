@@ -48,7 +48,7 @@
     right: 5px;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .container-header {
         font-size: 40px;
     }

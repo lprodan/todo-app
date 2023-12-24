@@ -17,7 +17,6 @@ const ListComponent = lazy(() => import("../ListComponent/ListComponent.tsx"));
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
   const [email, setEmail] = useState("");
-  console.log(isAuthenticated);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -43,73 +42,79 @@ function App() {
 
   return (
     <React.Fragment>
-      {isAuthenticated !== undefined && (
-        <header>
-          <nav>
-            <ul>
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
-              {isAuthenticated ? (
+      {isAuthenticated !== undefined ? (
+        <>
+          <header>
+            <nav>
+              <ul>
                 <li>
-                  <NavLink to="/tasks">ToDo</NavLink>
+                  <NavLink to="/">Home</NavLink>
                 </li>
-              ) : (
+                {isAuthenticated ? (
+                  <li>
+                    <NavLink to="/tasks">ToDo</NavLink>
+                  </li>
+                ) : (
+                  <li>
+                    <NavLink to="/auth/login">Log In</NavLink>
+                  </li>
+                )}
                 <li>
-                  <NavLink to="/auth/login">Log In</NavLink>
+                  <NavLink to="/about">About</NavLink>
                 </li>
-              )}
-              <li>
-                <NavLink to="/about">About</NavLink>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
 
-          {isAuthenticated ? (
-            <div className="user-email">
-              <span>{email}</span>
-              <button
-                type="button"
-                className="btn btn-sign-out"
-                onClick={handleSignOut}
-                title="Sign Out"
-              >
-                <FontAwesomeIcon icon={faRightFromBracket} />
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
-        </header>
-      )}
-      <main>
-        <Suspense fallback={<div className="message">Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<Home />} />
             {isAuthenticated ? (
-              <Route path="/tasks" element={<ListComponent />} />
+              <div className="user-email">
+                <span>{email}</span>
+                <button
+                  type="button"
+                  className="btn btn-sign-out"
+                  onClick={handleSignOut}
+                  title="Sign Out"
+                >
+                  <FontAwesomeIcon icon={faRightFromBracket} />
+                </button>
+              </div>
             ) : (
-              <>
-                <Route path="/auth/login" element={<Login />} />
-                <Route path="/auth/signup" element={<SignUp />} />
-                <Route
-                  path="/auth/reset-password"
-                  element={<ResetPassword />}
-                />
-              </>
+              ""
             )}
-            <Route path="/about" element={<About />} />
-            {isAuthenticated !== undefined && (
-              <Route
-                path="*"
-                element={
-                  <Navigate to={isAuthenticated ? "/tasks" : "/auth/login"} />
-                }
-              />
-            )}
-          </Routes>
-        </Suspense>
-      </main>
+          </header>
+          <main>
+            <Suspense fallback={<div className="message">Loading...</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                {isAuthenticated ? (
+                  <Route path="/tasks" element={<ListComponent />} />
+                ) : (
+                  <>
+                    <Route path="/auth/login" element={<Login />} />
+                    <Route path="/auth/signup" element={<SignUp />} />
+                    <Route
+                      path="/auth/reset-password"
+                      element={<ResetPassword />}
+                    />
+                  </>
+                )}
+                <Route path="/about" element={<About />} />
+                {isAuthenticated !== undefined && (
+                  <Route
+                    path="*"
+                    element={
+                      <Navigate
+                        to={isAuthenticated ? "/tasks" : "/auth/login"}
+                      />
+                    }
+                  />
+                )}
+              </Routes>
+            </Suspense>
+          </main>
+        </>
+      ) : (
+        <div className="message">Loading...</div>
+      )}
     </React.Fragment>
   );
 }

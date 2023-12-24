@@ -1,8 +1,8 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import "./Authentication.css";
-import { signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.ts";
+import { getRedirectResult, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { auth, googleAuthProvider } from "../firebase.ts";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +22,6 @@ export default function Login() {
       })
       .catch((error) => {
         const errorCode = error.code;
-        console.log(errorCode);
         switch (errorCode) {
           case "auth/invalid-credential":
             setErrors({ email: "Your login or password is incorrect" });
@@ -33,7 +32,10 @@ export default function Login() {
       });
   };
 
-  const authGoogle = () => {};
+  const authGoogle = () => {
+    return signInWithRedirect(auth, googleAuthProvider)
+  };
+
   const authAnonym = () => {
     signInAnonymously(auth).catch((error) => {
       console.log(error.message);

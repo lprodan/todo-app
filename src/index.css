@@ -63,3 +63,7 @@ a {
   color: var(--error-color);
   left: 0;
 }
+
+::-ms-reveal {
+  display: none;
+}

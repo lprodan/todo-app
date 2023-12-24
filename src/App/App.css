@@ -55,7 +55,7 @@ header a {
   background: var(--accent2-color);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   header {
     flex-direction: column-reverse;
     padding: 9px;
