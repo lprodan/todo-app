@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import "./Authentication.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.ts";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,8 +12,8 @@ export default function Login() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
 
   const loginUser = (
-    { email, password }: any,
-    { setErrors }: FormikHelpers<any>
+    { email, password }: { email: string; password: string },
+    { setErrors }: FormikHelpers<{ email: string; password: string }>
   ) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -34,6 +34,11 @@ export default function Login() {
   };
 
   const authGoogle = () => {};
+  const authAnonym = () => {
+    signInAnonymously(auth).catch((error) => {
+      console.log(error.message);
+    });
+  };
 
   const changeVisibility = () => setPasswordVisibility(!passwordVisibility);
 
@@ -70,7 +75,7 @@ export default function Login() {
                 placeholder="Email"
               />
               <ErrorMessage name="password" render={errorPassword} />
-              <div style={{ position: "relative" }}>
+              <div className="box-pass">
                 <Field
                   name="password"
                   className="input input-authentication"
@@ -82,12 +87,14 @@ export default function Login() {
                     icon={faEye}
                     className="btn btn-eye"
                     onClick={changeVisibility}
+                    title="show password"
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faEyeSlash}
                     className="btn btn-eye"
                     onClick={changeVisibility}
+                    title="hide password"
                   />
                 )}
               </div>
@@ -104,14 +111,34 @@ export default function Login() {
                   Log In
                 </button>
                 <p>or</p>
-                <button
-                  type="button"
-                  className="btn btn-google"
-                  title="Sign in with Google"
-                  onClick={authGoogle}
-                >
-                  Sign in with Google
-                </button>
+                <div className="other-auth">
+                  <button
+                    type="button"
+                    className="btn btn-other-auth"
+                    title="Sign in with Google"
+                    onClick={authGoogle}
+                  >
+                    <img
+                      src="/public/icon-google.png"
+                      alt="google-icon"
+                      className="icon-google"
+                    />
+                    Sign in with Google
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-other-auth"
+                    title="Sign in with Google"
+                    onClick={authAnonym}
+                  >
+                    <img
+                      src="/public/icon-anonymous.png"
+                      alt="google-icon"
+                      className="icon-google"
+                    />
+                    Anonymous sign in
+                  </button>
+                </div>
                 <div className="auth-container-footer">
                   <span>Not registered yet?</span>
                   <Link

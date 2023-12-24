@@ -7,6 +7,8 @@ import { ErrorMessage, Field, Form, Formik, FormikConfig } from "formik";
 import * as Yup from "yup";
 import * as List from "../API/api.ts";
 import ListItemComponent from "../ListItemComponent/ListItemComponent.tsx";
+import { Pagination } from "../Pagination/Pagination.tsx";
+import { ItemsPerPage } from "../Pagination/ItemsPerPage.tsx";
 
 export interface ListItem {
   id: string;
@@ -20,7 +22,24 @@ function ListComponent() {
   const [filter, setFilter] = useState<boolean | undefined>(undefined);
   const [error, setError] = useState<Error>();
 
-  const addItem: FormikConfig<any>["onSubmit"] = async (
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const paginate = (pageNumber: number) => {
+    if (pageNumber > 0 && pageNumber <= Math.ceil(list.length / itemsPerPage)) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  const handleItemsPerPageChange = (newItemsPerPage: number) => {
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1);
+  };
+
+  const addItem: FormikConfig<{ value: string }>["onSubmit"] = async (
     { value },
     { setFieldValue }
   ) => {
@@ -73,11 +92,13 @@ function ListComponent() {
   });
 
   useEffect(() => {
-    const unsubscribe = List.onUpdate((data) => {
+    const unsubscribe = List.onUpdate(filter, (data) => {
       setList(data);
+      setCurrentPage(1);
     });
+
     return () => unsubscribe();
-  }, []);
+  }, [filter]);
 
   const renderError = (msg: string) => {
     return <div className="error error-list">{msg}</div>;
@@ -89,12 +110,10 @@ function ListComponent() {
     }, 2000);
   }
 
+  const currentList = list.slice(indexOfFirstItem, indexOfLastItem);
+
   const renderList = () => {
-    if (list.length === 0) {
-      return (
-        <div className="message">You don't have any tasks at the moment</div>
-      );
-    } else if (error) {
+    if (error) {
       return (
         <h1 style={{ color: "var(--error-color)" }}>
           {error.message}
@@ -102,21 +121,19 @@ function ListComponent() {
         </h1>
       );
     } else {
-      return list
-        .filter((item) => filter === undefined || item.checked === filter)
-        .map((item) => (
-          <ListItemComponent
-            id={item.id}
-            key={item.id}
-            value={item.value}
-            checked={item.checked}
-            date={item.date}
-            onRemove={() => removeItem(item.id)}
-            onCheck={() => checkItem(item.id, !item.checked)}
-            onEdited={(value) => editItem(item.id, value)}
-            validationSchema={schema}
-          />
-        ));
+      return currentList.map((item) => (
+        <ListItemComponent
+          id={item.id}
+          key={item.id}
+          value={item.value}
+          checked={item.checked}
+          date={item.date}
+          onRemove={() => removeItem(item.id)}
+          onCheck={() => checkItem(item.id, !item.checked)}
+          onEdited={(value) => editItem(item.id, value)}
+          validationSchema={schema}
+        />
+      ));
     }
   };
 
@@ -150,7 +167,23 @@ function ListComponent() {
             </button>
           </Form>
         </Formik>
-        <div className="box-section">{renderList()}</div>
+        {list.length > 0 ? (
+          <>
+            <ItemsPerPage
+              itemsPerPage={itemsPerPage}
+              setItemsPerPage={handleItemsPerPageChange}
+            />
+            <div className="box-section">{renderList()}</div>
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              totalItems={list.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </>
+        ) : (
+          <div className="box-section message">No tasks</div>
+        )}
         <div className="box-footer">
           <div
             className={"condition" + (filter === undefined ? " active" : "")}

@@ -13,8 +13,8 @@ export default function SignUp() {
 
   const navigate = useNavigate();
   const register = (
-    { email, password }: any,
-    { setErrors }: FormikHelpers<any>
+    { email, password }: { email: string; password: string },
+    { setErrors }: FormikHelpers<{ email: string; password: string }>
   ) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -34,6 +34,7 @@ export default function SignUp() {
   };
 
   const authGoogle = () => {};
+  const authAnonym = () => {};
 
   const goToLogIn = () => {
     navigate("/auth/login");
@@ -72,7 +73,7 @@ export default function SignUp() {
             placeholder="Email"
           />
           <ErrorMessage name="password" render={errorPassword} />
-          <div style={{ position: "relative" }}>
+          <div className="box-pass">
             <Field
               name="password"
               className="input input-authentication"
@@ -84,12 +85,14 @@ export default function SignUp() {
                 icon={faEye}
                 className="btn btn-eye"
                 onClick={changeVisibility}
+                title="show password"
               />
             ) : (
               <FontAwesomeIcon
                 icon={faEyeSlash}
                 className="btn btn-eye"
                 onClick={changeVisibility}
+                title="hide password"
               />
             )}
           </div>
@@ -98,14 +101,34 @@ export default function SignUp() {
               Sign Up
             </button>
             <p>or</p>
-            <button
-              type="button"
-              className="btn btn-google"
-              title="Sign in with Google"
-              onClick={authGoogle}
-            >
-              Sign in with Google
-            </button>
+            <div className="other-auth">
+              <button
+                type="button"
+                className="btn btn-other-auth"
+                title="Sign in with Google"
+                onClick={authGoogle}
+              >
+                <img
+                  src="/public/icon-google.png"
+                  alt="google-icon"
+                  className="icon-google"
+                />
+                Sign in with Google
+              </button>
+              <button
+                type="button"
+                className="btn btn-other-auth"
+                title="Sign in with Google"
+                onClick={authAnonym}
+              >
+                <img
+                  src="/public/icon-anonymous.png"
+                  alt="google-icon"
+                  className="icon-google"
+                />
+                Anonymous sign in
+              </button>
+            </div>
             <div className="auth-container-footer">
               <span>Are you already registered?</span>
               <button
