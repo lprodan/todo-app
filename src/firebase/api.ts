@@ -1,4 +1,4 @@
-import { db } from "../firebase.ts";
+import { db } from "./config.ts";
 import {
   collection,
   addDoc,
@@ -14,14 +14,9 @@ import {
   orderBy,
   QueryConstraint,
 } from "firebase/firestore";
-import { ListItem } from "../ListComponent/ListComponent.tsx";
 import { FirestoreError, QuerySnapshot } from "@firebase/firestore";
-
-interface Item extends ListItem {
-  value: string;
-  checked: boolean;
-  date: string;
-}
+import { ITodoItem } from "../types/todo-item.ts";
+import { IFirestoreTodoItem } from "../types/firestore-todo-item.ts";
 
 let collectionRef: CollectionReference;
 
@@ -57,7 +52,7 @@ export function create(value: string) {
   });
 }
 
-export function update(id: string, item: Partial<Item>) {
+export function update(id: string, item: Partial<ITodoItem>) {
   const docRef = doc(collectionRef, id);
   return updateDoc(docRef, {
     ...item,
@@ -65,7 +60,7 @@ export function update(id: string, item: Partial<Item>) {
   });
 }
 
-function processData(data: QuerySnapshot) {
+function processData(data: QuerySnapshot<IFirestoreTodoItem>) {
   return data.docs.map((doc) => {
     const data = doc.data();
 
@@ -80,13 +75,13 @@ function processData(data: QuerySnapshot) {
       ...data,
       id: doc.id,
       date: `${year}-${month}-${day}`,
-    } as ListItem;
+    } as ITodoItem;
   });
 }
 
 export function onUpdate(
   filter: boolean | undefined,
-  next?: (data: ListItem[]) => void,
+  next?: (data: ITodoItem[]) => void,
   error?: (error: FirestoreError) => void
 ) {
   const queryArr: QueryConstraint[] = [];
@@ -100,7 +95,7 @@ export function onUpdate(
   return onSnapshot(q, {
     next: (todos) => {
       if (next) {
-        const data = processData(todos);
+        const data = processData(todos as QuerySnapshot<IFirestoreTodoItem>);
         next(data);
       }
     },

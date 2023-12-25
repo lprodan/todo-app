@@ -1,24 +1,18 @@
 import React, { useEffect } from "react";
-import "./ListComponent.css";
+import "./TodoList.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ErrorMessage, Field, Form, Formik, FormikConfig } from "formik";
 import * as Yup from "yup";
-import * as List from "../API/api.ts";
-import ListItemComponent from "../ListItemComponent/ListItemComponent.tsx";
+import * as List from "../../firebase/api.ts";
+import TodoItem from "./TodoItem.tsx";
 import { Pagination } from "../Pagination/Pagination.tsx";
 import { ItemsPerPage } from "../Pagination/ItemsPerPage.tsx";
+import { ITodoItem } from "../../types/todo-item.ts";
 
-export interface ListItem {
-  id: string;
-  checked: boolean;
-  value: string;
-  date: string;
-}
-
-function ListComponent() {
-  const [list, setList] = useState<ListItem[]>([]);
+function TodoList() {
+  const [list, setList] = useState<ITodoItem[]>([]);
   const [filter, setFilter] = useState<boolean | undefined>(undefined);
   const [error, setError] = useState<Error>();
 
@@ -122,7 +116,7 @@ function ListComponent() {
       );
     } else {
       return currentList.map((item) => (
-        <ListItemComponent
+        <TodoItem
           id={item.id}
           key={item.id}
           value={item.value}
@@ -209,4 +203,4 @@ function ListComponent() {
   );
 }
 
-export default ListComponent;
+export default TodoList;

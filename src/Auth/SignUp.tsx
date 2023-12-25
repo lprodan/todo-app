@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import "./Authentication.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.ts";
+import { auth } from "../firebase/config.ts";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";

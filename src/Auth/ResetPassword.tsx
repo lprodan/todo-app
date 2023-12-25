@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../firebase.ts";
+import { auth } from "../firebase/config.ts";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Authentication.css";
 

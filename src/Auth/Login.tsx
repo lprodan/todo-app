@@ -1,8 +1,12 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import "./Authentication.css";
-import { getRedirectResult, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
-import { auth, googleAuthProvider } from "../firebase.ts";
+import "./Auth.css";
+import {
+  signInAnonymously,
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+} from "firebase/auth";
+import { auth, googleAuthProvider } from "../firebase/config.ts";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +37,7 @@ export default function Login() {
   };
 
   const authGoogle = () => {
-    return signInWithRedirect(auth, googleAuthProvider)
+    return signInWithRedirect(auth, googleAuthProvider);
   };
 
   const authAnonym = () => {

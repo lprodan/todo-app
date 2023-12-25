@@ -6,21 +6,21 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import { ObjectSchema } from "yup";
-import { ListItem } from "../ListComponent/ListComponent.tsx";
+import { AnyObject, ObjectSchema } from "yup";
+import { ITodoItem } from "../../types/todo-item";
 
-interface Props extends ListItem {
+interface Props extends ITodoItem {
   onEdited?: (value: string) => void;
   onCheck?: () => void;
   onRemove?: () => void;
-  validationSchema: ObjectSchema<any>;
+  validationSchema: ObjectSchema<AnyObject>;
 }
 
 interface ValueObj {
   value: string;
 }
 
-export default function ListItemComponent(props: Props) {
+export default function TodoItem(props: Props) {
   const [isEditing, setEditMode] = useState(false);
 
   const enterEditMode = () => setEditMode(true);

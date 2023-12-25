@@ -2,17 +2,17 @@ import { Navigate, NavLink, redirect, Route, Routes } from "react-router-dom";
 import "./App.css";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase.ts";
-import { setUserId } from "../API/api.ts";
+import { auth } from "./firebase/config.ts";
+import { setUserId } from "./firebase/api.ts";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ResetPassword = lazy(() => import("../Authentication/ResetPassword.tsx"));
-const Login = lazy(() => import("../Authentication/Login.tsx"));
-const Home = lazy(() => import("../Home/Home.tsx"));
-const About = lazy(() => import("../About/About.tsx"));
-const SignUp = lazy(() => import("../Authentication/SignUp.tsx"));
-const ListComponent = lazy(() => import("../ListComponent/ListComponent.tsx"));
+const ResetPassword = lazy(() => import("./Auth/ResetPassword.tsx"));
+const Login = lazy(() => import("./Auth/Login.tsx"));
+const Home = lazy(() => import("./Home/Home.tsx"));
+const About = lazy(() => import("./About/About.tsx"));
+const SignUp = lazy(() => import("./Auth/SignUp.tsx"));
+const TodoList = lazy(() => import("./Todo/TodoList/TodoList.tsx"));
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
@@ -86,7 +86,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 {isAuthenticated ? (
-                  <Route path="/tasks" element={<ListComponent />} />
+                  <Route path="/tasks" element={<TodoList />} />
                 ) : (
                   <>
                     <Route path="/auth/login" element={<Login />} />
