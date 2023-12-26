@@ -1,18 +1,13 @@
-import { Navigate, NavLink, redirect, Route, Routes } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import "./App.css";
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase/config.ts";
 import { setUserId } from "./firebase/api.ts";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const ResetPassword = lazy(() => import("./Auth/ResetPassword.tsx"));
-const Login = lazy(() => import("./Auth/Login.tsx"));
-const Home = lazy(() => import("./Home/Home.tsx"));
-const About = lazy(() => import("./About/About.tsx"));
-const SignUp = lazy(() => import("./Auth/SignUp.tsx"));
-const TodoList = lazy(() => import("./Todo/TodoList/TodoList.tsx"));
+import { Routes } from "./AppRoutes.tsx";
+import { AppHeader } from "./AppHeader.tsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
@@ -41,29 +36,11 @@ function App() {
   };
 
   return (
-    <React.Fragment>
+    <>
       {isAuthenticated !== undefined ? (
         <>
           <header>
-            <nav>
-              <ul>
-                <li>
-                  <NavLink to="/">Home</NavLink>
-                </li>
-                {isAuthenticated ? (
-                  <li>
-                    <NavLink to="/tasks">ToDo</NavLink>
-                  </li>
-                ) : (
-                  <li>
-                    <NavLink to="/auth/login">Log In</NavLink>
-                  </li>
-                )}
-                <li>
-                  <NavLink to="/about">About</NavLink>
-                </li>
-              </ul>
-            </nav>
+            <AppHeader isAuthenticated={isAuthenticated} />
 
             {isAuthenticated ? (
               <div className="user-email">
@@ -83,39 +60,14 @@ function App() {
           </header>
           <main>
             <Suspense fallback={<div className="message">Loading...</div>}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                {isAuthenticated ? (
-                  <Route path="/tasks" element={<TodoList />} />
-                ) : (
-                  <>
-                    <Route path="/auth/login" element={<Login />} />
-                    <Route path="/auth/signup" element={<SignUp />} />
-                    <Route
-                      path="/auth/reset-password"
-                      element={<ResetPassword />}
-                    />
-                  </>
-                )}
-                <Route path="/about" element={<About />} />
-                {isAuthenticated !== undefined && (
-                  <Route
-                    path="*"
-                    element={
-                      <Navigate
-                        to={isAuthenticated ? "/tasks" : "/auth/login"}
-                      />
-                    }
-                  />
-                )}
-              </Routes>
+              <Routes isAuthenticated={isAuthenticated} />
             </Suspense>
           </main>
         </>
       ) : (
         <div className="message">Loading...</div>
       )}
-    </React.Fragment>
+    </>
   );
 }
 
