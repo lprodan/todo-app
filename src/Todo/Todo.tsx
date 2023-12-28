@@ -31,7 +31,6 @@ export default function Todo() {
     try {
       await List.create(value)
       await setFieldValue("value", "", false)
-      throw new Error("hi")
     } catch (error) {
       console.log(error)
     }
