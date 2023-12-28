@@ -20,6 +20,10 @@ export default function Todo() {
     return () => unsubscribe()
   }, [filter])
 
+  const renderError = (msg: string) => {
+    return <div className="error error-list">{msg}</div>
+  }
+
   const addItem: FormikConfig<{ value: string }>["onSubmit"] = async (
     { value },
     { setFieldValue }
@@ -27,18 +31,23 @@ export default function Todo() {
     try {
       await List.create(value)
       await setFieldValue("value", "", false)
-    } catch (error) {}
+      throw new Error("hi")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const clearAll = async () => {
     try {
-      const ids = list.map((item) => item.id)
-      await List.clear(ids)
-    } catch (error) {}
-  }
-
-  const renderError = (msg: string) => {
-    return <div className="error error-list">{msg}</div>
+      const text =
+        "You are going to delete the entire list without the possibility of recovery. Continue?"
+      if (confirm(text) == true) {
+        const ids = list.map((item) => item.id)
+        await List.clear(ids)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

@@ -62,7 +62,7 @@ function TodoList({ list }: Props) {
     if (list.length > 0 && indexOfFirstItem > list.length - 1) {
       setCurrentPage(currentPage - 1)
     }
-  }, [list.length])
+  }, [list, indexOfFirstItem])
 
   const currentList = list.slice(indexOfFirstItem, indexOfLastItem)
 

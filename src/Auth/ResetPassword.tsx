@@ -11,6 +11,8 @@ export default function ResetPassword() {
   const navigation = useNavigate()
 
   const changePassword = () => {
+    console.log(1)
+
     sendPasswordResetEmail(auth, email)
     alert(
       "Instructions for changing your password have been sent to you by mail"
@@ -27,7 +29,12 @@ export default function ResetPassword() {
       >
         <Form className="submit">
           <EmailField />
-          <button className="btn btn-submit" type="submit" title="Reset">
+          <button
+            className="btn btn-submit"
+            type="submit"
+            title="Reset"
+            onClick={changePassword}
+          >
             Reset Password
           </button>
         </Form>
