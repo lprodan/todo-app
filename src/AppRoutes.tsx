@@ -1,16 +1,16 @@
-import { lazy } from "react";
-import { RouteObject, useRoutes, Navigate } from "react-router-dom";
+import { lazy } from "react"
+import { RouteObject, useRoutes, Navigate } from "react-router-dom"
 
-const Home = lazy(() => import("./Home/Home.tsx"));
-const About = lazy(() => import("./About/About.tsx"));
-const Auth = lazy(() => import("./Auth/Auth.tsx"));
-const Login = lazy(() => import("./Auth/Login.tsx"));
-const SignUp = lazy(() => import("./Auth/SignUp.tsx"));
-const ResetPassword = lazy(() => import("./Auth/ResetPassword.tsx"));
-const Todo = lazy(() => import("./Todo/Todo.tsx"));
+const Home = lazy(() => import("./Home/Home.tsx"))
+const About = lazy(() => import("./About/About.tsx"))
+const Auth = lazy(() => import("./Auth/Auth.tsx"))
+const Login = lazy(() => import("./Auth/Login.tsx"))
+const SignUp = lazy(() => import("./Auth/SignUp.tsx"))
+const ResetPassword = lazy(() => import("./Auth/ResetPassword.tsx"))
+const Todo = lazy(() => import("./Todo/Todo.tsx"))
 
 interface Props {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean
 }
 
 export const Routes = ({ isAuthenticated }: Props) => {
@@ -27,13 +27,13 @@ export const Routes = ({ isAuthenticated }: Props) => {
       path: "*",
       element: <Navigate to={isAuthenticated ? "/tasks" : "/auth/login"} />,
     },
-  ];
+  ]
 
   if (isAuthenticated) {
     routes.push({
       path: "/tasks",
       Component: Todo,
-    });
+    })
   } else {
     routes.push({
       path: "/auth",
@@ -52,8 +52,8 @@ export const Routes = ({ isAuthenticated }: Props) => {
           Component: ResetPassword,
         },
       ],
-    });
+    })
   }
 
-  return useRoutes(routes);
-};
+  return useRoutes(routes)
+}

@@ -1,70 +1,70 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import * as List from "../../firebase/api.ts";
-import TodoItem from "./TodoItem.tsx";
-import { Pagination } from "../Pagination/Pagination.tsx";
-import { ItemsPerPage } from "../Pagination/ItemsPerPage.tsx";
-import { ITodoItem } from "../../types/todo-item.ts";
+import React, { useEffect } from "react"
+import { useState } from "react"
+import * as List from "../../firebase/api.ts"
+import TodoItem from "./TodoItem.tsx"
+import { Pagination } from "../Pagination/Pagination.tsx"
+import { ItemsPerPage } from "../Pagination/ItemsPerPage.tsx"
+import { ITodoItem } from "../../types/todo-item.ts"
 
 interface Props {
-  list: ITodoItem[];
+  list: ITodoItem[]
 }
 
 function TodoList({ list }: Props) {
-  const [error, setError] = useState<Error>();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [error, setError] = useState<Error>()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
 
   const paginate = (pageNumber: number) => {
     if (pageNumber > 0 && pageNumber <= Math.ceil(list.length / itemsPerPage)) {
-      setCurrentPage(pageNumber);
+      setCurrentPage(pageNumber)
     }
-  };
+  }
 
   const handleItemsPerPageChange = (newItemsPerPage: number) => {
-    setItemsPerPage(newItemsPerPage);
-  };
+    setItemsPerPage(newItemsPerPage)
+  }
 
   const editItem = async (id: string, value: string) => {
     try {
-      await List.update(id, { value });
+      await List.update(id, { value })
     } catch (e) {
-      setError(e as Error);
+      setError(e as Error)
     }
-  };
+  }
 
   const removeItem = async (id: string) => {
     try {
-      await List.remove(id);
+      await List.remove(id)
     } catch (e) {
-      setError(e as Error);
+      setError(e as Error)
     }
-  };
+  }
 
   const checkItem = async (id: string, checked: boolean) => {
     try {
-      await List.update(id, { checked });
+      await List.update(id, { checked })
     } catch (e) {
-      setError(e as Error);
+      setError(e as Error)
     }
-  };
+  }
 
   if (error) {
     setTimeout(() => {
-      setError(undefined);
-    }, 2000);
+      setError(undefined)
+    }, 2000)
   }
 
   useEffect(() => {
     if (list.length > 0 && indexOfFirstItem > list.length - 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(currentPage - 1)
     }
-  }, [list.length]);
+  }, [list.length])
 
-  const currentList = list.slice(indexOfFirstItem, indexOfLastItem);
+  const currentList = list.slice(indexOfFirstItem, indexOfLastItem)
 
   const renderList = () => {
     if (error) {
@@ -73,7 +73,7 @@ function TodoList({ list }: Props) {
           {error.message}
           <p>Help me -_-</p>
         </h1>
-      );
+      )
     } else {
       return currentList.map((item) => (
         <TodoItem
@@ -86,9 +86,9 @@ function TodoList({ list }: Props) {
           onCheck={() => checkItem(item.id, !item.checked)}
           onEdited={(value) => editItem(item.id, value)}
         />
-      ));
+      ))
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -110,7 +110,7 @@ function TodoList({ list }: Props) {
         <div className="box-section message">No tasks</div>
       )}
     </React.Fragment>
-  );
+  )
 }
 
-export default TodoList;
+export default TodoList

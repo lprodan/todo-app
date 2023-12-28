@@ -1,5 +1,5 @@
 export interface NavConfig {
-  label: string;
-  link: string;
-  auth?: boolean;
+  label: string
+  link: string
+  auth?: boolean
 }

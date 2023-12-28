@@ -1,39 +1,39 @@
-import { redirect } from "react-router-dom";
-import "./App.css";
-import { Suspense, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./firebase/config.ts";
-import { setUserId } from "./firebase/api.ts";
-import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Routes } from "./AppRoutes.tsx";
-import { AppHeader } from "./AppHeader.tsx";
+import { redirect } from "react-router-dom"
+import "./App.css"
+import { Suspense, useEffect, useState } from "react"
+import { onAuthStateChanged, signOut } from "firebase/auth"
+import { auth } from "./firebase/config.ts"
+import { setUserId } from "./firebase/api.ts"
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Routes } from "./AppRoutes.tsx"
+import { AppHeader } from "./AppHeader.tsx"
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
-  const [email, setEmail] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>()
+  const [email, setEmail] = useState("")
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user);
+      setIsAuthenticated(!!user)
       if (user) {
-        setUserId(user.uid);
-        setEmail(user.email ?? "Anonymous");
+        setUserId(user.uid)
+        setEmail(user.email ?? "Anonymous")
       } else {
-        setEmail("");
+        setEmail("")
       }
-    });
+    })
 
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe()
+  }, [])
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => redirect("/auth/login"))
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   return (
     <>
@@ -68,7 +68,7 @@ function App() {
         <div className="message">Loading...</div>
       )}
     </>
-  );
+  )
 }
 
-export default App;
+export default App

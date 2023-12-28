@@ -1,17 +1,17 @@
-import "./Pagination.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./Pagination.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faAnglesRight,
   faAnglesLeft,
   faAngleLeft,
   faAngleRight,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/free-solid-svg-icons"
 
 interface Props {
-  itemsPerPage: number;
-  totalItems: number;
-  paginate: (value: number) => void;
-  currentPage: number;
+  itemsPerPage: number
+  totalItems: number
+  paginate: (value: number) => void
+  currentPage: number
 }
 
 export function Pagination({
@@ -20,11 +20,11 @@ export function Pagination({
   paginate,
   currentPage,
 }: Props) {
-  const pageNumbers = [];
-  const lastPage = Math.ceil(totalItems / itemsPerPage);
+  const pageNumbers = []
+  const lastPage = Math.ceil(totalItems / itemsPerPage)
 
   for (let i = 1; i <= lastPage; i++) {
-    pageNumbers.push(i);
+    pageNumbers.push(i)
   }
 
   return (
@@ -55,5 +55,5 @@ export function Pagination({
         </li>
       </ul>
     </nav>
-  );
+  )
 }

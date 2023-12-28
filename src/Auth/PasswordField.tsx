@@ -1,16 +1,16 @@
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ErrorMessage, Field } from "formik";
-import { useState } from "react";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { ErrorMessage, Field } from "formik"
+import { useState } from "react"
 
 export function PasswordField() {
-  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [passwordVisibility, setPasswordVisibility] = useState(true)
 
   const errorPassword = (msg: string) => {
-    return <div className="error error-password">{msg}</div>;
-  };
+    return <div className="error error-password">{msg}</div>
+  }
 
-  const changeVisibility = () => setPasswordVisibility(!passwordVisibility);
+  const changeVisibility = () => setPasswordVisibility(!passwordVisibility)
 
   return (
     <div className="box-pass">
@@ -37,5 +37,5 @@ export function PasswordField() {
         />
       )}
     </div>
-  );
+  )
 }

@@ -2,38 +2,38 @@ import {
   faCheck,
   faPenToSquare,
   faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useState } from "react";
-import { ITodoItem } from "../../types/todo-item";
-import { schema } from "../validation-schema";
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { ErrorMessage, Field, Form, Formik } from "formik"
+import { useState } from "react"
+import { ITodoItem } from "../../types/todo-item"
+import { schema } from "../validation-schema"
 
 interface Props extends ITodoItem {
-  onEdited?: (value: string) => void;
-  onCheck?: () => void;
-  onRemove?: () => void;
+  onEdited?: (value: string) => void
+  onCheck?: () => void
+  onRemove?: () => void
 }
 
 interface ValueObj {
-  value: string;
+  value: string
 }
 
 export default function TodoItem(props: Props) {
-  const [isEditing, setEditMode] = useState(false);
+  const [isEditing, setEditMode] = useState(false)
 
-  const enterEditMode = () => setEditMode(true);
+  const enterEditMode = () => setEditMode(true)
 
-  const leaveEditMode = () => setEditMode(false);
+  const leaveEditMode = () => setEditMode(false)
 
   const onSubmit = ({ value }: ValueObj) => {
-    props.onEdited?.(value);
-    leaveEditMode();
-  };
+    props.onEdited?.(value)
+    leaveEditMode()
+  }
 
   const renderErr = (msg: string) => {
-    return <div className="error edit-mode">{msg}</div>;
-  };
+    return <div className="error edit-mode">{msg}</div>
+  }
 
   return (
     <Formik
@@ -87,5 +87,5 @@ export default function TodoItem(props: Props) {
         </button>
       </Form>
     </Formik>
-  );
+  )
 }

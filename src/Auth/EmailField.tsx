@@ -1,9 +1,9 @@
-import { ErrorMessage, Field } from "formik";
+import { ErrorMessage, Field } from "formik"
 
 export default function EmailField() {
   const errorEmail = (msg: string) => {
-    return <div className="error error-email">{msg}</div>;
-  };
+    return <div className="error error-email">{msg}</div>
+  }
 
   return (
     <>
@@ -15,5 +15,5 @@ export default function EmailField() {
         placeholder="Email"
       />
     </>
-  );
+  )
 }

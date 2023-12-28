@@ -1,38 +1,38 @@
-import { Form, Formik, FormikHelpers } from "formik";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/config.ts";
-import { useNavigate } from "react-router-dom";
-import EmailField from "./EmailField.tsx";
-import { PasswordField } from "./PasswordField.tsx";
-import { AlternativeAuth } from "./AlternativeAuth.tsx";
-import { SignupSchema } from "./SignupSchema.ts";
+import { Form, Formik, FormikHelpers } from "formik"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../firebase/config.ts"
+import { useNavigate } from "react-router-dom"
+import EmailField from "./EmailField.tsx"
+import { PasswordField } from "./PasswordField.tsx"
+import { AlternativeAuth } from "./AlternativeAuth.tsx"
+import { SignupSchema } from "./SignupSchema.ts"
 
 export default function SignUp() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const register = (
     { email, password }: { email: string; password: string },
     { setErrors }: FormikHelpers<{ email: string; password: string }>
   ) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const user = userCredential.user
 
-        console.log(user);
+        console.log(user)
       })
       .catch((error) => {
-        const errorCode = error.code;
+        const errorCode = error.code
 
         switch (errorCode) {
           case "auth/email-already-in-use":
-            setErrors({ email: "You are already registered" });
-            break;
+            setErrors({ email: "You are already registered" })
+            break
         }
-      });
-  };
+      })
+  }
 
   const goToLogIn = () => {
-    navigate("/auth/login");
-  };
+    navigate("/auth/login")
+  }
 
   return (
     <div className="auth-container">
@@ -65,5 +65,5 @@ export default function SignUp() {
         </Form>
       </Formik>
     </div>
-  );
+  )
 }

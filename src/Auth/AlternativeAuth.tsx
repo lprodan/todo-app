@@ -1,13 +1,13 @@
-import { signInAnonymously, signInWithRedirect } from "firebase/auth";
-import { auth, googleAuthProvider } from "../firebase/config";
+import { signInAnonymously, signInWithRedirect } from "firebase/auth"
+import { auth, googleAuthProvider } from "../firebase/config"
 
 export const AlternativeAuth = () => {
-  const authGoogle = () => signInWithRedirect(auth, googleAuthProvider);
+  const authGoogle = () => signInWithRedirect(auth, googleAuthProvider)
 
   const authAnonym = () =>
     signInAnonymously(auth).catch((error) => {
-      console.log(error.message);
-    });
+      console.log(error.message)
+    })
 
   return (
     <div className="other-auth">
@@ -38,5 +38,5 @@ export const AlternativeAuth = () => {
         Anonymous sign in
       </button>
     </div>
-  );
-};
+  )
+}

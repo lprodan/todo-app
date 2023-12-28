@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from "yup"
 
 export const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -6,4 +6,4 @@ export const SignupSchema = Yup.object().shape({
     .max(50, "* Too Long!")
     .required("* Required"),
   email: Yup.string().email("* Invalid email").required("* Required"),
-});
+})

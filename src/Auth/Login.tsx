@@ -1,11 +1,11 @@
-import { Form, Formik, FormikHelpers } from "formik";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/config.ts";
-import { Link } from "react-router-dom";
-import EmailField from "./EmailField.tsx";
-import { PasswordField } from "./PasswordField.tsx";
-import { AlternativeAuth } from "./AlternativeAuth.tsx";
-import { SignupSchema } from "./SignupSchema.ts";
+import { Form, Formik, FormikHelpers } from "formik"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../firebase/config.ts"
+import { Link } from "react-router-dom"
+import EmailField from "./EmailField.tsx"
+import { PasswordField } from "./PasswordField.tsx"
+import { AlternativeAuth } from "./AlternativeAuth.tsx"
+import { SignupSchema } from "./SignupSchema.ts"
 
 export default function Login() {
   const loginUser = (
@@ -14,20 +14,24 @@ export default function Login() {
   ) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+        const user = userCredential.user
+        console.log(user)
       })
       .catch((error) => {
-        const errorCode = error.code;
+        const errorCode = error.code
         switch (errorCode) {
           case "auth/invalid-credential":
-            setErrors({ email: "Your login or password is incorrect" });
-            break;
+            setErrors({
+              email: "Your login or password is incorrect",
+            })
+            break
           case "auth/too-many-requests":
-            setErrors({ email: "Too many attempts, please try again later" });
+            setErrors({
+              email: "Too many attempts, please try again later",
+            })
         }
-      });
-  };
+      })
+  }
 
   return (
     <div className="auth-container">
@@ -67,9 +71,9 @@ export default function Login() {
                 </div>
               </div>
             </Form>
-          );
+          )
         }}
       </Formik>
     </div>
-  );
+  )
 }

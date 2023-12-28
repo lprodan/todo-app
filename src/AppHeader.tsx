@@ -1,8 +1,8 @@
-import { NavLink } from "react-router-dom";
-import { NavConfig } from "./types/nav-config";
+import { NavLink } from "react-router-dom"
+import { NavConfig } from "./types/nav-config"
 
 interface Props {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean
 }
 
 export function AppHeader({ isAuthenticated }: Props) {
@@ -25,7 +25,7 @@ export function AppHeader({ isAuthenticated }: Props) {
       label: "About",
       link: "/about",
     },
-  ];
+  ]
 
   return (
     <nav>
@@ -39,9 +39,9 @@ export function AppHeader({ isAuthenticated }: Props) {
               <li key={item.label}>
                 <NavLink to={item.link}>{item.label}</NavLink>
               </li>
-            );
+            )
           })}
       </ul>
     </nav>
-  );
+  )
 }

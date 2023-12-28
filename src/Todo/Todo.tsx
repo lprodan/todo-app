@@ -1,45 +1,45 @@
-import React, { useEffect, useState } from "react";
-import TodoList from "./TodoList/TodoList";
-import { ErrorMessage, Field, Formik, FormikConfig, Form } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import * as List from "../firebase/api.ts";
-import { schema } from "./validation-schema.ts";
-import { ITodoItem } from "../types/todo-item.ts";
-import "./TodoList/TodoList.css";
+import React, { useEffect, useState } from "react"
+import TodoList from "./TodoList/TodoList"
+import { ErrorMessage, Field, Formik, FormikConfig, Form } from "formik"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import * as List from "../firebase/api.ts"
+import { schema } from "./validation-schema.ts"
+import { ITodoItem } from "../types/todo-item.ts"
+import "./TodoList/TodoList.css"
 
 export default function Todo() {
-  const [filter, setFilter] = useState<boolean | undefined>(undefined);
-  const [list, setList] = useState<ITodoItem[]>([]);
+  const [filter, setFilter] = useState<boolean | undefined>(undefined)
+  const [list, setList] = useState<ITodoItem[]>([])
 
   useEffect(() => {
     const unsubscribe = List.onUpdate(filter, (data) => {
-      setList(data);
-    });
+      setList(data)
+    })
 
-    return () => unsubscribe();
-  }, [filter]);
+    return () => unsubscribe()
+  }, [filter])
 
   const addItem: FormikConfig<{ value: string }>["onSubmit"] = async (
     { value },
     { setFieldValue }
   ) => {
     try {
-      await List.create(value);
-      await setFieldValue("value", "", false);
+      await List.create(value)
+      await setFieldValue("value", "", false)
     } catch (error) {}
-  };
+  }
 
   const clearAll = async () => {
     try {
-      const ids = list.map((item) => item.id);
-      await List.clear(ids);
+      const ids = list.map((item) => item.id)
+      await List.clear(ids)
     } catch (error) {}
-  };
+  }
 
   const renderError = (msg: string) => {
-    return <div className="error error-list">{msg}</div>;
-  };
+    return <div className="error error-list">{msg}</div>
+  }
 
   return (
     <React.Fragment>
@@ -94,5 +94,5 @@ export default function Todo() {
         </div>
       </div>
     </React.Fragment>
-  );
+  )
 }
