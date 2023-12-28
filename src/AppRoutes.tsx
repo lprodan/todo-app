@@ -7,7 +7,7 @@ const Auth = lazy(() => import("./Auth/Auth.tsx"));
 const Login = lazy(() => import("./Auth/Login.tsx"));
 const SignUp = lazy(() => import("./Auth/SignUp.tsx"));
 const ResetPassword = lazy(() => import("./Auth/ResetPassword.tsx"));
-const TodoList = lazy(() => import("./Todo/TodoList/TodoList.tsx"));
+const Todo = lazy(() => import("./Todo/Todo.tsx"));
 
 interface Props {
   isAuthenticated: boolean;
@@ -32,7 +32,7 @@ export const Routes = ({ isAuthenticated }: Props) => {
   if (isAuthenticated) {
     routes.push({
       path: "/tasks",
-      Component: TodoList,
+      Component: Todo,
     });
   } else {
     routes.push({

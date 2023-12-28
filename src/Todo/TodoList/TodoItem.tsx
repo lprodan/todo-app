@@ -6,14 +6,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import { AnyObject, ObjectSchema } from "yup";
 import { ITodoItem } from "../../types/todo-item";
+import { schema } from "../validation-schema";
 
 interface Props extends ITodoItem {
   onEdited?: (value: string) => void;
   onCheck?: () => void;
   onRemove?: () => void;
-  validationSchema: ObjectSchema<AnyObject>;
 }
 
 interface ValueObj {
@@ -39,7 +38,7 @@ export default function TodoItem(props: Props) {
   return (
     <Formik
       initialValues={{ value: props.value }}
-      validationSchema={props.validationSchema}
+      validationSchema={schema}
       onSubmit={onSubmit}
     >
       <Form className="list">
