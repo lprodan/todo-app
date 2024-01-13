@@ -17,11 +17,7 @@ export const AlternativeAuth = () => {
         title="Sign in with Google"
         onClick={authGoogle}
       >
-        <img
-          src="/public/icon-google.png"
-          alt="google-icon"
-          className="icon-google"
-        />
+        <img src="/icon-google.png" alt="google-icon" className="icon-google" />
         Sign in with Google
       </button>
       <button
@@ -31,7 +27,7 @@ export const AlternativeAuth = () => {
         onClick={authAnonym}
       >
         <img
-          src="/public/icon-anonymous.png"
+          src="/icon-anonymous.png"
           alt="google-icon"
           className="icon-google"
         />
