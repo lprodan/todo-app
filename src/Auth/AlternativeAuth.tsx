@@ -27,7 +27,7 @@ export const AlternativeAuth = () => {
         onClick={authAnonym}
       >
         <img
-          src="/icon-anonymous.png"
+          src="../../../todo-app/public/icon-anonymous.png"
           alt="google-icon"
           className="icon-google"
         />
