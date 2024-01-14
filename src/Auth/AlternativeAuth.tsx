@@ -1,5 +1,7 @@
 import { signInAnonymously, signInWithRedirect } from "firebase/auth"
 import { auth, googleAuthProvider } from "../firebase/config"
+import anonIcon from "../../public/icon-anonymous.png"
+import googleIcon from "../../public/icon-google.png"
 
 export const AlternativeAuth = () => {
   const authGoogle = () => signInWithRedirect(auth, googleAuthProvider)
@@ -17,7 +19,7 @@ export const AlternativeAuth = () => {
         title="Sign in with Google"
         onClick={authGoogle}
       >
-        <img src="/icon-google.png" alt="google-icon" className="icon-google" />
+        <img src={googleIcon} alt="google-icon" className="icon-google" />
         Sign in with Google
       </button>
       <button
@@ -26,11 +28,7 @@ export const AlternativeAuth = () => {
         title="Sign in with Google"
         onClick={authAnonym}
       >
-        <img
-          src="../../../todo-app/public/icon-anonymous.png"
-          alt="google-icon"
-          className="icon-google"
-        />
+        <img src={anonIcon} alt="google-icon" className="icon-google" />
         Anonymous sign in
       </button>
     </div>
