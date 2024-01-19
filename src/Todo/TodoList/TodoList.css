@@ -81,6 +81,7 @@
 .icon.add {
   flex: 1;
   color: var(--accent-color);
+  background-color: inherit;
 }
 
 .list {
@@ -148,7 +149,7 @@
 }
 
 .condition.active {
-  color: var(--button-color); 
+  color: var(--button-color);
 }
 
 .condition:not(:last-child) {

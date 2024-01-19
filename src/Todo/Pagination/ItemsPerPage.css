@@ -1,11 +1,15 @@
 .count-items {
+  color: var(--text-color);
   margin: 10px;
+  font-size: 14px;
 }
 
 .count-items select {
   margin-left: 4px;
   background: inherit;
   cursor: pointer;
+  color: inherit;
+  font-size: inherit;
 }
 
 .count-items select:hover {

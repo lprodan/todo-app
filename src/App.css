@@ -45,6 +45,7 @@ header a {
 }
 
 .btn-sign-out {
+  color: inherit;
   font-size: 16px;
   background: var(--secondary-color);
   margin-left: 5px;
